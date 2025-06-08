@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NoProfile } from '../assets';
-import { CreatePerson, UpdatePerson } from '../redux/userSlice';
+import { AddPartner, CreatePerson, UpdatePerson } from '../redux/userSlice';
 import { LiaEditSolid } from 'react-icons/lia';
 import { URL_BACKEND } from '../utils/url_back';
 import { Link } from 'react-router-dom';
@@ -9,13 +9,15 @@ import CreatePersonModal from './CreatePersonModal';
 import { LuDelete } from 'react-icons/lu';
 import axios from 'axios';
 import UpdatePersonModal from './UpdatePersonModal';
+import { FaPeopleArrows } from 'react-icons/fa';
+import AddPartnerModal from './AddPartnerModal';
 
 
 const PersonList = () => {
     const [persons, setPersons] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const {createPerson, updatePerson} = useSelector((state) => state.user);
+    const {createPerson, updatePerson, addPartner} = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const familyTreeId = localStorage.getItem("familyTreeId");
 
@@ -97,6 +99,7 @@ const PersonList = () => {
 
             {createPerson && <CreatePersonModal />}
             {updatePerson && <UpdatePersonModal />}
+            {addPartner && <AddPartnerModal />}
             
             <div className="w-full flex flex-col gap-4 pt-4">
                 {loading ? (
@@ -133,6 +136,14 @@ const PersonList = () => {
                                     className="text-blue cursor-pointer"
                                     onClick={() => dispatch(UpdatePerson(true))}
                                     aria-label="Create new person"
+                                />
+                            </span>
+                            <span>
+                                <FaPeopleArrows 
+                                    className='text-[#027818fe] cursor-pointer'
+                                    size={22}
+                                    aria-label='Delete Person'
+                                    onClick={() => dispatch(AddPartner(true))}
                                 />
                             </span>
                             <span>

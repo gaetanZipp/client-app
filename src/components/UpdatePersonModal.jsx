@@ -155,7 +155,7 @@ const UpdatePersonModal = () => {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',
                     },
-                }
+                },
             );
 
             console.log("Response:", response.data);

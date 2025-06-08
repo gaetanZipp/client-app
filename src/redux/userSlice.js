@@ -18,6 +18,7 @@ const initialState = {
   createTree: false, // New state for toggling family tree creation
   createPerson: false,
   updatePerson: false,
+  addPartner: false,
 };
 
 const userSlice = createSlice({
@@ -46,13 +47,22 @@ const userSlice = createSlice({
     },
     updatePersons(state, action) {
       state.updatePerson = action.payload;
+    },
+    addPartners(state, action) {
+      state.addPartner = action.payload;
     }
   },
 });
 
 export default userSlice.reducer;
 
-export const { login, logout, updateProfile, createFamilyTree, createPersons, updatePersons } = userSlice.actions;
+export const { login, logout, updateProfile, createFamilyTree, createPersons, updatePersons, addPartners } = userSlice.actions;
+
+export function AddPartner(val) {
+  return (dispatch) => {
+    dispatch(addPartners(val));
+  };
+}
 
 export function UserLogin(user) {
   return (dispatch) => {

@@ -12,6 +12,7 @@ import SuggestFriend from './SuggestFriend';
 import CreateFamilyTree from './CreateFamilyTree';
 import Person from './person';
 import PersonList from './PersonList';
+import UpdatePersonModal from './UpdatePersonModal';
+import AddPartnerModal from './AddPartnerModal';
 
-
-export { TextInput, Person, PersonList, CreateFamilyTree, SuggestFriend, FamilyTree, FriendRequest, CustomButton, PostCard, Loading, FriendsCard, TopBar, EditProfile, ProfileCard }
+export { TextInput, Person, UpdatePersonModal, AddPartnerModal, PersonList, CreateFamilyTree, SuggestFriend, FamilyTree, FriendRequest, CustomButton, PostCard, Loading, FriendsCard, TopBar, EditProfile, ProfileCard }
