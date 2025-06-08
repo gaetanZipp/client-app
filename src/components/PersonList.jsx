@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NoProfile } from '../assets';
-import { CreatePerson } from '../redux/userSlice';
+import { CreatePerson, UpdatePerson } from '../redux/userSlice';
 import { LiaEditSolid } from 'react-icons/lia';
 import { URL_BACKEND } from '../utils/url_back';
 import { Link } from 'react-router-dom';
 import CreatePersonModal from './CreatePersonModal';
 import { LuDelete } from 'react-icons/lu';
+import axios from 'axios';
+import UpdatePersonModal from './UpdatePersonModal';
 
 
 const PersonList = () => {
     const [persons, setPersons] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const {createPerson} = useSelector((state) => state.user);
+    const {createPerson, updatePerson} = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const familyTreeId = localStorage.getItem("familyTreeId");
 
@@ -50,9 +52,34 @@ const PersonList = () => {
         }
     }, [familyTreeId])
 
-    const handleDelete = () => {
+    const handleDelete = async (personId) => {
+        if (!window.confirm('Voulez-vous vraiment supprimer cette personne ?')) return;
 
-    }
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) throw new Error('Aucun token d\'authentification trouvé');
+
+            const response = await axios.delete(`${URL_BACKEND}/api/Persons/${personId}`, {
+                headers: {
+                Authorization: `Bearer ${token}`,
+                },
+            });
+
+            console.log(response.data);
+
+            setPersons(persons.filter((p) => p.id !== personId));
+            window.location.reload();
+        } catch (error) {
+            setError(error.response?.data?.message || 'Échec de la suppression');
+            console.error('Erreur:', error);
+        }
+    };
+
+    const handleEditClick = (e, personId) => {
+        e.stopPropagation(); // Empêche le déclenchement du onClick du parent Link
+        localStorage.setItem("personId", personId);
+        dispatch(UpdatePerson(true));
+    };
 
     return (
         <div className="w-full bg-primary shadow-sm rounded-lg flex flex-col px-6 py-4">
@@ -69,7 +96,8 @@ const PersonList = () => {
             </div>
 
             {createPerson && <CreatePersonModal />}
-
+            {updatePerson && <UpdatePersonModal />}
+            
             <div className="w-full flex flex-col gap-4 pt-4">
                 {loading ? (
                     <p className="text-ascent-2">Loading...</p>
@@ -83,7 +111,7 @@ const PersonList = () => {
                             aria-label={`View family tree ${person.name || "Unknown"}`}
                             onClick={(e) => {
                                 e.preventDefault(); // Empêche la navigation immédiate (optionnel)
-                                localStorage.setItem("personId", person.id.toString());
+                                localStorage.setItem("personId", person.id);
                             }}
                         >
                             <img
@@ -103,7 +131,7 @@ const PersonList = () => {
                                 <LiaEditSolid
                                     size={22}
                                     className="text-blue cursor-pointer"
-                                    // onClick={}
+                                    onClick={() => dispatch(UpdatePerson(true))}
                                     aria-label="Create new person"
                                 />
                             </span>
@@ -112,7 +140,7 @@ const PersonList = () => {
                                     className='text-[#f64949fe] cursor-pointer'
                                     size={22}
                                     aria-label='Delete Person'
-                                    onClick={handleDelete()}
+                                    onClick={() => handleDelete(person.id)}
                                 />
                             </span>
                         </Link>

@@ -156,7 +156,7 @@ const Person = () => {
           });
 
         } catch (error) {
-          setError('Erreur lors de l\'initialisation de l\'arbre');
+          // setError('Erreur lors de l\'initialisation de l\'arbre');
           console.error('Erreur lors de l\'initialisation de FamilyTree:', error);
         }
       }

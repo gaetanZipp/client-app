@@ -151,7 +151,7 @@ const CreatePersonModal = () => {
                             htmlFor='modal-headline'
                             className='block font-medium text-xl text-ascent-1 text-left'
                         >
-                            Create Family Member
+                            Add Family Member
                         </label>
                         <button
                             className='text-ascent-1'
@@ -217,7 +217,6 @@ const CreatePersonModal = () => {
                                 />
                             </div>
                         </div>
-
                         <div className='grid grid-cols-2 gap-4'>
                             <div className='flex flex-col gap-2'>
                                 <label className='text-ascent-2 text-sm'>Father</label>
@@ -267,7 +266,7 @@ const CreatePersonModal = () => {
                             </button>
                             <button
                                 type='submit'
-                                disabled={isSubmitting}
+                                // disabled={isSubmitting}
                                 className='px-4 py-2 text-sm text-white bg-blue rounded-md hover:bg-blue-600 disabled:bg-blue-300'
                             >
                                 {isSubmitting ? "Creating..." : "Create"}
