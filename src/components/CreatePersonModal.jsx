@@ -227,7 +227,7 @@ const CreatePersonModal = () => {
                                 >
                                     <option value="">Select Father</option>
                                     {filteredPersons
-                                        .filter(person => person.gender === "male")
+                                        .filter(person => person.gender === "male" && person.familyTreeId == familyTreeId)
                                         .map(person => (
                                             <option key={person.id} value={person.name}>
                                                 {person.name}
@@ -245,7 +245,7 @@ const CreatePersonModal = () => {
                                 >
                                     <option value="">Select Mother</option>
                                     {filteredPersons
-                                        .filter(person => person.gender === "female")
+                                        .filter(person => person.gender === "female" && person.familyTreeId == familyTreeId)
                                         .map(person => (
                                             <option key={person.id} value={person.name}>
                                                 {person.name}

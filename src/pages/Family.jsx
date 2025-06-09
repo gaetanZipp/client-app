@@ -1,6 +1,7 @@
 import React from 'react'
 import { FamilyTree, Person, PersonList, ProfileCard, TopBar } from '../components'
 import { useSelector } from 'react-redux'
+import FamilyUserList from '../components/FamilyUserList';
 
 const Family = () => {
     const id = localStorage.getItem("id");
@@ -25,6 +26,7 @@ const Family = () => {
                 {/* RIGHT */}
                 <div className='hidden w-1/4 h-full lg:flex flex-col gap-8 overflow-y-auto'>
                     <PersonList />
+                    <FamilyUserList />
                     {/* <PartnerManager /> */}
                 </div>
             </div>

@@ -19,6 +19,7 @@ const initialState = {
   createPerson: false,
   updatePerson: false,
   addPartner: false,
+  addFamilyUser: false,
 };
 
 const userSlice = createSlice({
@@ -50,13 +51,22 @@ const userSlice = createSlice({
     },
     addPartners(state, action) {
       state.addPartner = action.payload;
-    }
+    },
+    addFamilyUsers(state, action) {
+      state.addFamilyUser = action.payload;
+    },
   },
 });
 
 export default userSlice.reducer;
 
-export const { login, logout, updateProfile, createFamilyTree, createPersons, updatePersons, addPartners } = userSlice.actions;
+export const { addFamilyUsers, login, logout, updateProfile, createFamilyTree, createPersons, updatePersons, addPartners } = userSlice.actions;
+
+export function AddFamilyUser(val) {
+  return (dispatch) => {
+    dispatch(addFamilyUsers(val));
+  };
+}
 
 export function AddPartner(val) {
   return (dispatch) => {

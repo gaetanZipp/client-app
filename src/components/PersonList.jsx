@@ -77,12 +77,6 @@ const PersonList = () => {
         }
     };
 
-    const handleEditClick = (e, personId) => {
-        e.stopPropagation(); // Empêche le déclenchement du onClick du parent Link
-        localStorage.setItem("personId", personId);
-        dispatch(UpdatePerson(true));
-    };
-
     return (
         <div className="w-full bg-primary shadow-sm rounded-lg flex flex-col px-6 py-4">
             <div className="flex items-center justify-between pb-2 text-ascent-1 border-b border-[#66666645]">
@@ -100,6 +94,7 @@ const PersonList = () => {
             {createPerson && <CreatePersonModal />}
             {updatePerson && <UpdatePersonModal />}
             {addPartner && <AddPartnerModal />}
+            {}
             
             <div className="w-full flex flex-col gap-4 pt-4">
                 {loading ? (

@@ -10,6 +10,7 @@ import { CustomButton, Loading, TextInput } from "../components";
 import { BgImage } from "../assets";
 import axios from "axios";
 import { URL_BACKEND } from "../utils/url_back";
+
 const Login = () => {
   const {
     register,
@@ -18,8 +19,6 @@ const Login = () => {
   } = useForm({
     mode: "onChange",
   });
-
-  
 
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
