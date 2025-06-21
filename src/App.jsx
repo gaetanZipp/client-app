@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useLocation, Outlet} from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, Outlet, BrowserRouter} from "react-router-dom";
 import {Home, Login, Profile, Register, ResetPassword }  from './pages';
 import { useSelector } from "react-redux";
 import { Family } from "./pages";
@@ -20,17 +20,19 @@ function App() {
 
   return (
     <div data-theme = { theme } className="w-full min-h-[100vh]">
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path='/home' element={<Home />} />
-          <Route path='/profile/:id?' element={<Profile />} />
-        </Route>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path='/home' element={<Home />} />
+            <Route path='/profile/:id?' element={<Profile />} />
+          </Route>
 
-        <Route path='/' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/reset-password' element={<ResetPassword />} />
-        <Route path='/familyTree' element={<Family />} />
-      </Routes>
+          <Route path='/' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/reset-password' element={<ResetPassword />} />
+          <Route path='/familyTree' element={<Family />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
