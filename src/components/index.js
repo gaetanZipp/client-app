@@ -10,7 +10,7 @@ import FamilyTree from './FamilyTree';
 import FriendRequest from './FriendRequest';
 import SuggestFriend from './SuggestFriend';
 import CreateFamilyTree from './CreateFamilyTree';
-import Person from './person';
+import Person from './Person';
 import PersonList from './PersonList';
 import UpdatePersonModal from './UpdatePersonModal';
 import AddPartnerModal from './AddPartnerModal';

@@ -18,34 +18,39 @@ const FriendRequest = () => {
             const token = localStorage.getItem("token");
             if (!token) throw new Error("No authentication token found");
 
+            // Convertir requestId en entier
+            const intRequestId = parseInt(requestId);
+            if (isNaN(intRequestId)) throw new Error("Invalid request ID");
+
+            console.log("Id de la requête :", intRequestId, "Action :", action);
+
             setLoading(true);
             setError(null);
 
             const response = await axios.post(
                 `${URL_BACKEND}/api/Users/${action}-request`,
-                { 
-                    RequestId: requestId,
-                    ...(action === 'accept' && { Status: "Accepted" })
-                },
-                { 
-                    headers: { 
+                action === 'accept'
+                    ? { RequestId: intRequestId, status: "Accepted" }
+                    : { RequestId: intRequestId },
+                {
+                    headers: {
                         Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    } 
-                },
+                        'Content-Type': 'application/json',
+                    },
+                }
             );
 
             if (response.data?.success) {
-                setFriendRequest(prev => prev.filter(req => req._id !== requestId));
-                setSuccessMsg(`Friend request ${action}ed successfully`);
+                setFriendRequest(prev => prev.filter(req => req.Id !== intRequestId));
+                setSuccessMsg(response.data.message || `Friend request ${action}ed successfully`);
                 setTimeout(() => setSuccessMsg(null), 3000);
+                window.location.reload();
             } else {
                 throw new Error(response.data?.message || "Action failed");
             }
         } catch (error) {
             console.error(`Error ${action}ing friend request:`, error);
             setError(error.response?.data?.message || `Failed to ${action} friend request`);
-            console.log("error",error);
         } finally {
             setLoading(false);
         }
@@ -78,10 +83,11 @@ const FriendRequest = () => {
                 setLoading(true);
                 setError(null);
                 const requests = await fetchFriendRequests();
+                // console.log("Friend Requests:", requests); // Pour débogage
                 setFriendRequest(requests);
             } catch (err) {
                 console.error("Error loading friend requests:", err);
-                setError(err.message || "Failed to load friend requests");
+                setError(err.Message || "Failed to load friend requests");
                 setFriendRequest([]);
             } finally {
                 setLoading(false);
@@ -110,12 +116,13 @@ const FriendRequest = () => {
                 ) : successMsg ? (
                     <p className='text-green-500'>{successMsg}</p>
                 ) : friendRequest.length > 0 ? (
-                    friendRequest.map(({ _id, requestFrom }) => (
-                        <div key={requestFrom.id} className='flex items-center justify-between'>
+                    friendRequest.map(({ id, requestFrom }) => (
+                        <div key={requestFrom?.id} className='flex items-center justify-between'>
                             <Link
                                 to={`/profile/${requestFrom?.id || ''}`}
                                 className='w-full flex gap-4 items-center cursor-pointer'
                                 aria-label={`View profile of ${requestFrom?.firstName || ''} ${requestFrom?.lastName || ''}`}
+                                onClick={localStorage.setItem("requestId", id)}
                             >
                                 <img
                                     src={requestFrom?.profileUrl ?? NoProfile}
@@ -136,16 +143,16 @@ const FriendRequest = () => {
                                 <CustomButton
                                     title='Accept'
                                     containerStyles='bg-[#0444a4] text-xs text-white px-1.5 py-1 rounded-full'
-                                    onClick={() => handleFriendRequestAction(_id, 'accept')}
+                                    onClick={() => handleFriendRequestAction(id, 'accept')}
                                     disabled={loading}
-                                    aria-label={`Accept friend request from ${requestFrom?.firstName || ''} ${requestFrom?.lastName || ''}`}
+                                    aria-label={`Accept friend request from ${requestFrom?.frstName || ''} ${requestFrom?.lastName || ''}`}
                                 />
                                 <CustomButton
                                     title='Deny'
                                     containerStyles='border border-[#666] text-xs text-ascent-1 px-1.5 py-1 rounded-full'
-                                    onClick={() => handleFriendRequestAction(_id, 'deny')}
+                                    onClick={() => handleFriendRequestAction(id, 'reject')}
                                     disabled={loading}
-                                    aria-label={`Deny friend request from ${requestFrom?.firstName || ''} ${requestFrom?.lastName || ''}`}
+                                    aria-label={`Reject friend request from ${requestFrom?.firstName || ''} ${requestFrom?.lastName || ''}`}
                                 />
                             </div>
                         </div>

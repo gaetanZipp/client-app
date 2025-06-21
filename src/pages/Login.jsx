@@ -138,12 +138,12 @@ const Login = () => {
             {isSubmitting ? (
               <Loading />
             ) : (
-              <CustomButton
-                type="submit"
-                containerStyles="inline-flex justify-center rounded-md bg-blue px-8 py-3 text-sm font-medium text-white outline-none"
-                title="Login"
-                aria-label="Log in to your account"
-              />
+                <CustomButton
+                  type="submit"
+                  containerStyles="inline-flex justify-center rounded-md bg-blue px-8 py-3 text-sm font-medium text-white outline-none"
+                  title="Login"
+                  aria-label="Log in to your account"
+                />
             )}
           </form>
 

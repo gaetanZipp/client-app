@@ -15,7 +15,7 @@ const Profile = () => {
         <div className='w-full flex gap-2 lg:gap-4 md:pl-4 pt-5 pb-10 h-full'>
           <div className='hidden w-1/3 lg:w-1/4 md:flex flex-col gap-6 overflow-y-auto'>
             <ProfileCard userId={id}/>
-            <FamilyTree userId={id}/>
+            {/* <FamilyTree userId={id}/> */}
             <div className='block lg:hidden'>
               <FriendsCard userId={id} />
             </div>

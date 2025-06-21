@@ -57,7 +57,7 @@ const SuggestFriend = () => {
         }
       );
 
-      if (response.data?.Success) {
+      if (response.data?.success) {
         setRequestStatus((prev) => ({
           ...prev,
           [RequestFromId]: {
@@ -73,7 +73,7 @@ const SuggestFriend = () => {
           }));
         }, 3000); // Effacer le message après 3 secondes
       } else {
-        throw new Error(response.data?.Message || "Failed to send friend request");
+        throw new Error(response.data?.message || "Failed to send friend request");
       }
     } catch (error) {
       console.error("Error sending friend request:", error);
