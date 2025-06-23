@@ -1,3 +1,10 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+  "redirect": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://gaetanlagrange-001-site1.qtempurl.com/api/:path*",
+      "permanent": true
+    }
+  ]
 }
