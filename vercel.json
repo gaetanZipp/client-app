@@ -3,7 +3,7 @@
   "redirect": [
     {
       "source": "/api/:path*",
-      "destination": "https://gaetanlagrange-001-site1.qtempurl.com/api/:path*",
+      "destination": "http://217.154.116.46:8082/",
       "permanent": true
     }
   ]
