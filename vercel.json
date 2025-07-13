@@ -1,9 +1,14 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
-  "redirect": [
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "redirects": [
     {
       "source": "/api/:path*",
-      "destination": "http://217.154.116.46:8082/",
+      "destination": "http://217.154.116.46:8082/:path*",
       "permanent": true
     }
   ]
