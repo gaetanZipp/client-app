@@ -93,7 +93,8 @@ const Person = () => {
           }
 
           const family = new window.FamilyTree(treeRef.current, {
-            mode: 'dark',
+            // mode: localStorage.getItem('theme'),
+            mode: "dark",
             mouseScroll: window.FamilyTree.action.ctrlZoom,
             nodeTreeMenu: true,
             nodeBinding: {

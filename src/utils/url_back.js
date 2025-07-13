@@ -1,2 +1,2 @@
-export const URL_BACKEND = "https://gaetanlagrange-001-site1.qtempurl.com";
+export const URL_BACKEND = "http://217.154.116.46:8082";
 
